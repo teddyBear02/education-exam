@@ -1,15 +1,15 @@
 import React from "react";
 import classNames from "classnames/bind";
-import styles from "./Home.module.scss";
+import styles from "./Loading.module.scss";
 
 const cx = classNames.bind(styles);
 
-const Home = () => {
+const Loading = () => {
   return (
     <>
-      <h1>This is home page</h1>
+      <div></div>
     </>
   );
 };
 
-export default Home;
+export default Loading;

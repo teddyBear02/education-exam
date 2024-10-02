@@ -4,9 +4,6 @@ import { ResponseLogin } from '@/models';
 
 export const saveAuthData = (payload: ResponseLogin) => {
   cookieSet(StorageKey.TOKEN, payload.accessToken);
-  cookieSet(StorageKey.REFRESH_TOKEN, payload.refreshToken);
-  storageSet(StorageKey.EXPIRES, payload.expires);
-  storageSet(StorageKey.EXPIRES_IN, JSON.stringify(payload.expiryIn));
   storageSet(StorageKey.USER, JSON.stringify(payload.user));
   storageSet(StorageKey.NEWEST_SIGN_IN, 'true');
 };

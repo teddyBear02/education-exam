@@ -4,5 +4,8 @@ export enum RoleDataType{
 }
 
 export type UserDataType = {
-
+    name: string,
+    email: string,
+    role: RoleDataType[],
+    phoneNumber: number | string | null
 }

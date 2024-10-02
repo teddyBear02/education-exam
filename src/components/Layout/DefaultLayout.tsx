@@ -18,30 +18,18 @@ const DefaultLayout = ({ children }: LayoutProps) => {
 
   useEffect(() => {
     const userStr = storageGet(StorageKey.USER);
-    if (!0) {
-      if (userStr && userStr.toString() !== "undefined") {
-        const userData = JSON.parse(userStr) as RoleDataType;
-        if (!userData) return;
-        // dispatch(controlAuthUser(userData));
-      } else {
-        push(
-          query.id ? `/auth/sign-out?project=${query.id}` : "/auth/sign-out"
-        );
+    if (userStr && userStr.toString() !== "undefined") {
+      const userData = JSON.parse(userStr) as RoleDataType;
+      if (!userData) return;
+      // dispatch(controlAuthUser(userData));
+      else {
+        push(query.id ? `/auth/login` : "/auth/login");
       }
     }
   }, []);
   return (
     <PrivateLayout>
-      <div className={cx("layout-wrapper")}>
-        <div
-          className={cx(
-            "layout-body",
-            pathname === "/[id]/chats" && "chat-container"
-          )}
-        >
-          {children}
-        </div>
-      </div>
+      <div className={cx("layout-wrapper")}>{children}</div>
     </PrivateLayout>
   );
 };

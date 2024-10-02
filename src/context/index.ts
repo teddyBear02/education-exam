@@ -5,7 +5,7 @@ import { createContext, useContext } from 'react';
 export type AppContextProps = {
   loading: boolean,
   setLoading: (value: boolean) => void
-  accountRole: RoleDataType
+  accountRole: RoleDataType | null
   setAccountRole: (d: RoleDataType) => void
 }
 

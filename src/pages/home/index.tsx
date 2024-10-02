@@ -1,3 +1,4 @@
+import React from "react";
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -24,7 +25,7 @@ export default HomePage;
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? "en-US", [])),
+      ...(await serverSideTranslations(locale ?? "en-US", ["common"])),
     },
   };
 };

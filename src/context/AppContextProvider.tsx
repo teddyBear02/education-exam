@@ -1,3 +1,4 @@
+import React from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { ContextProvider } from ".";
@@ -9,11 +10,8 @@ export const AppContextProvider = ({
   children: React.ReactNode;
 }) => {
   const router = useRouter();
-
   const [loading, setLoading] = useState<boolean>(false);
-  const [accountRole, setAccountRole] = useState<RoleDataType>(
-    RoleDataType.USER
-  );
+  const [accountRole, setAccountRole] = useState<RoleDataType | null>(null);
 
   const valueContext = {
     loading,

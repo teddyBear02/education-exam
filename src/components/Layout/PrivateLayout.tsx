@@ -1,19 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-
 import { StorageKey } from "@/constants";
 import { LayoutProps } from "@/models";
 import { cookieGet, storageGet } from "@/helper/appStorage";
 import { useAppDispatch } from "@/store";
-import { unwrapResult } from "@reduxjs/toolkit";
 import { clearAuthData, saveAuthData } from "@/helper/authHelper";
 import { useAppContext } from "@/context";
 
 const PrivateLayout = ({ children }: LayoutProps) => {
   const dispatch = useAppDispatch();
   const { setLoading } = useAppContext();
-  const { query, push } = useRouter();
-
+  const router = useRouter();
   const [logged, setLogged] = useState<boolean>(false);
 
   useEffect(() => {
@@ -22,20 +19,15 @@ const PrivateLayout = ({ children }: LayoutProps) => {
   }, []);
 
   const handleCallFirstData = useCallback(async () => {
-    const accessToken = cookieGet(StorageKey.TOKEN);
-    const refreshToken = cookieGet(StorageKey.REFRESH_TOKEN);
-    const newestSignIn = storageGet(StorageKey.NEWEST_SIGN_IN);
+    const accessToken = await cookieGet(StorageKey.TOKEN);
+    const newestSignIn = await storageGet(StorageKey.NEWEST_SIGN_IN);
 
-    if (!accessToken) {
+    if (!accessToken || accessToken === "undefined") {
       clearAuthData();
       setLogged(false);
-      push(query.id ? `/auth/sign-out?project=${query.id}` : "/auth/sign-out");
-      return;
+      router.push("auth/login");
     }
-
-    if (!JSON.parse(newestSignIn)) {
-    }
-  }, [dispatch]);
+  }, [router]);
 
   if (!logged) return <div />;
   return <>{children}</>;
